@@ -28,7 +28,7 @@ def create_database(connection, query):
     except Error as e:
         print(f"The error '{e}' occurred")
 
-create_database_query = "CREATE DATABASE cardata"
+create_database_query = "CREATE DATABASE myData"
 create_database(connection, create_database_query)
 
 
@@ -39,7 +39,7 @@ def create_connection(host_name,user_name, user_password,database):
             host="127.0.0.1",
             user="root",
             passwd="Njoki3130#",
-            database="cardata"
+            database="myData"
         )
         print("Connection to MySQL DB successful")
     except Error as e:
@@ -50,4 +50,4 @@ def create_connection(host_name,user_name, user_password,database):
 connection = create_connection("localhost", "root", "","database")
 
 
-cardata=pd.read_csv(r"C:\Users\omuku\OneDrive\Desktop\Data Engineering\Python_ETL_Task\data\cardata.csv")
+data=pd.read_csv(r"C:\Users\omuku\OneDrive\Desktop\Data Engineering\Python_ETL_Task\data\source1.csv")

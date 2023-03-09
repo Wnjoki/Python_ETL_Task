@@ -1,22 +1,51 @@
-import sys
-import petl as etl
-import psycopg2 as pg
-import sqlalchemy 
-import warnings
+#import the packages
+import os
+import pandas as pd
+from pandas.io import sql
+from sqlalchemy import create_engine
+from sqlalchemy.pool import Pool
+import mysql.connector
+import json
+
+    
+    # Load the csv file equipment_failure_sensors.log
+source1csv = pd.read_csv(r"C:\Users\omuku\OneDrive\Desktop\Data Engineering\Python_ETL_Task\data\source1.csv",)
+                                
+
+
+    # Load the log file equipment.json
+#source1json= json.loads(r"C:\Users\omuku\OneDrive\Desktop\Data Engineering\Python_ETL_Task\data\source1.json")
 
 
 
-dbConnection={'opperations': "dbname"}
+     # Create a database connection -- DATABASE TARGET
+db_connection = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="password",
+        database="persons", # schema used to be load
+        )
+    # Create a MySQL cursor to process the steps
+db_cursor = db_connection.cursor()
+    
+    # Total heights ?
+total = """SELECT SUM(height) AS TOTAL_height
+            FROM source1csv"""
+        
+db_cursor.execute(total)
+records = db_cursor.fetchall()
+        
+print("This is the total height:" + total)
+        
 
-path = "https://assets.datacamp.com/production/repositories/5899/datasets/19d6cf619d6a771314f0eb489262a31f89c424c2/ppr-all.zip"
+        
+        
+        
 
-# Import the required method
-from zipfile import ZipFile
+        
+                     
+    
 
-with ZipFile(path, "r") as f:
-    # Get the list of files
-    file_names = f.namelist()
-    print(file_names)
-    # Extract the CSV file
-    csv_file_path = f.extract(file_names[0])
-    print(csv_file_path)
+
+
+
